@@ -1,0 +1,19 @@
+{
+  "name": "feed-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sakshee-19/feed-service-udagram.git"
+  },
+  "author": "sakshee jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sakshee-19/feed-service-udagram/issues"
+  },
+  "homepage": "https://github.com/sakshee-19/feed-service-udagram#readme"
+}
