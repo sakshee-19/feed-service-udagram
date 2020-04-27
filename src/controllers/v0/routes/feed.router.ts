@@ -49,12 +49,22 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
        });
    }
 
+// Get a signed url to put a new item in the bucket
+router.get('/signed-url/:fileName', 
+    requireAuth, 
+    async (req: Request, res: Response) => {
+    console.log(req.params);
+    let { fileName } = req.params;
+    const url = getPutSignedUrl(fileName);
+    res.status(201).send({url: url});
+});
+
 router.post('/', async(req: Request, res:Response) => {
     const {url, caption} = req.body;
     if(!url || !caption){
         res.status(400).send("caption and url required");
     }
-    const putUrl = getPutSignedUrl(url);
+    // const putUrl = getPutSignedUrl(url);
     const feed = new FeedItem();
     feed.caption = caption;
     feed.url = url;
@@ -64,7 +74,7 @@ router.post('/', async(req: Request, res:Response) => {
     }catch(err) {
         res.status(400).send(err.message);
     }
-    savedFeed.url = putUrl;
+    savedFeed.url = getGetSignedUrl(url);
     res.status(201).send(savedFeed);
 
 });
