@@ -9,11 +9,18 @@ import { config } from "../../../config/config";
 const router : Router = Router();
 
 router.get('/', async(req:Request, res:Response) => {
-    const feedItems = await FeedItem.findAll();
-    feedItems.forEach(item => {
-        item.url = getGetSignedUrl(item.url);
+    const items = await FeedItem.findAndCountAll({order: [['id', 'DESC']]});
+    items.rows.map((item) => {
+            if(item.url) {
+                item.url = getGetSignedUrl(item.url);
+            }
     });
-    res.status(200).send(feedItems);
+    res.send(items);
+    // const feedItems = await FeedItem.findAll();
+    // feedItems.forEach(item => {
+    //     item.url = getGetSignedUrl(item.url);
+    // });
+    // res.status(200).send(feedItems);
 });
 
 router.get('/:id', async(req:Request, res:Response) => {
